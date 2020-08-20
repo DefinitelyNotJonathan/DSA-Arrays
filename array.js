@@ -156,55 +156,56 @@ function byeVowels(arr) {
     return arr
 }
 
-//I think I'm missing some type of array manipulation that can be used to solve this here.
 function products(arr) {
     let prodArr = []
+
     for(i=0; i < arr.length; i++) {
-        arr.slice(i,i)
+        let product=1
+        for(j=0; j<arr.length; j++) {
+            if(j !== i) {
+                product*arr[j]
+            }
+        }
+        prodArr.push()
     }
+    
 }
-//struggling a little with this one. Should I try to find a way to reset the iterations if I find a 0,
-//or should I dive deeper and add a 3rd and 4th for loop into the mix?
+// or multiply all together, then for loop and divide by i for each, and push into new array
+
 function twoDArray(arr) {
-    for(i=0; i<arr.length; i++) {
-        for(j=0; j<arr[i].length; j++) {
-            if(arr[i][j] === 0) {
-                // for(k = 0; k<arr[i].length; k++) {
-                //     arr[i][k] = 0
-                //     for(l=0; l<arr.length; l++) {
-                        
-                //     }
-                // }
-
+    let arr2 = arr.map((a) => {
+        return Array.from(a)
+        //Array.from copies an array
+    })
+    for(y=0; y<arr.length; y++) {
+        for(x=0; x<arr[y].length; x++) {
+            if(arr[y][x] === 0) {
+                for(y2 = 0; y2<arr.length; y2++) {
+                    arr2[y2][x] = 0
+                }
+                for(x2=0; x2<arr[y].length; x2++) {
+                    arr2[y][x2] = 0
+                }
             }
-            return //this moves on
         }
     }
+    console.log(arr);
 }
 
-//I want to take a single letter in str and compare it to each letter of rot. if it matches any of the 
-//letters in rot, then push those each to arrays and compare the next letter in each string. If those
-//match, push each into arrays and compare next letter
-
-function stringRotation(str, rot) {
-    let control = [];
-    let compare = [];
-    if (str.length !== rot.length) {
-        return false
-    }
-    for (i=0; i<str.length; i++) {
-        for (j = 0; j<rot.length; j++) {
-            if ( str[i] == rot[j]) {
-                control.push(str[i]); 
-                compare.push(rot[j]);
-                //I think this is all correct but I'm not sure what to return here
+function areRotations(str1, str2){
+    for(let i=0; i<str1.length; i++){
+        let valid=true;
+        for(let j=0; j<str1.length; j++){
+            if(str1[(i+j)%str1.length]!==str2[j]){
+                valid=false;
             }
-            return false
+        }
+        if(valid){
+            return true;
         }
     }
-    console.log(control)
-    console.log(compare)
-    if(control == compare) {
-        return true
-    }
+    return false;
 }
+
+console.log(areRotations("amazon", "azonma"))//false
+console.log(areRotations("amazon", "azonam"))//true
